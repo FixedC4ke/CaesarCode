@@ -1,4 +1,4 @@
-﻿namespace Vijener
+﻿namespace CaesarCode
 {
     partial class Form1
     {
@@ -39,6 +39,9 @@
             this.saveallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.криптоанализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.частотаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.freqTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.freqsFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,8 +51,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.freqTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -79,14 +86,15 @@
             this.opentextToolStripMenuItem,
             this.opencrtextToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.openToolStripMenuItem.Text = "&Открыть";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Text = "&Загрузить";
             // 
             // opentextToolStripMenuItem
             // 
             this.opentextToolStripMenuItem.Name = "opentextToolStripMenuItem";
-            this.opentextToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.opentextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.opentextToolStripMenuItem.Text = "&Исходный текст";
+            this.opentextToolStripMenuItem.Click += new System.EventHandler(this.opentextToolStripMenuItem_Click);
             // 
             // opencrtextToolStripMenuItem
             // 
@@ -132,10 +140,34 @@
             // криптоанализToolStripMenuItem
             // 
             this.криптоанализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.freqTextToolStripMenuItem});
+            this.частотаToolStripMenuItem,
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem});
             this.криптоанализToolStripMenuItem.Name = "криптоанализToolStripMenuItem";
             this.криптоанализToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
             this.криптоанализToolStripMenuItem.Text = "&Криптоанализ";
+            // 
+            // частотаToolStripMenuItem
+            // 
+            this.частотаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.freqTextToolStripMenuItem,
+            this.freqsFromFileToolStripMenuItem});
+            this.частотаToolStripMenuItem.Name = "частотаToolStripMenuItem";
+            this.частотаToolStripMenuItem.Size = new System.Drawing.Size(351, 22);
+            this.частотаToolStripMenuItem.Text = "Частоты букв";
+            // 
+            // freqTextToolStripMenuItem
+            // 
+            this.freqTextToolStripMenuItem.Name = "freqTextToolStripMenuItem";
+            this.freqTextToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
+            this.freqTextToolStripMenuItem.Text = "Сохранить частоты из открытого текста в файл";
+            this.freqTextToolStripMenuItem.Click += new System.EventHandler(this.freqTextToolStripMenuItem_Click);
+            // 
+            // freqsFromFileToolStripMenuItem
+            // 
+            this.freqsFromFileToolStripMenuItem.Name = "freqsFromFileToolStripMenuItem";
+            this.freqsFromFileToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
+            this.freqsFromFileToolStripMenuItem.Text = "Загрузить частоты из файла";
+            this.freqsFromFileToolStripMenuItem.Click += new System.EventHandler(this.freqsFromFileToolStripMenuItem_Click);
             // 
             // richTextBox1
             // 
@@ -144,7 +176,6 @@
             this.richTextBox1.Size = new System.Drawing.Size(334, 270);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
-            this.richTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox1_KeyPress);
             // 
             // richTextBox2
             // 
@@ -174,6 +205,8 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 360);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(699, 22);
@@ -217,12 +250,26 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // freqTextToolStripMenuItem
+            // saveFileDialog1
             // 
-            this.freqTextToolStripMenuItem.Name = "freqTextToolStripMenuItem";
-            this.freqTextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.freqTextToolStripMenuItem.Text = "freqText";
-            this.freqTextToolStripMenuItem.Click += new System.EventHandler(this.freqTextToolStripMenuItem_Click);
+            this.saveFileDialog1.Filter = "Текстовый файл|*.txt";
+            // 
+            // графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem
+            // 
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Name = "графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem";
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Size = new System.Drawing.Size(351, 22);
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Text = "График частот букв русского языка и шифртекста";
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Click += new System.EventHandler(this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Текстовый файл|*.txt";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             // 
             // Form1
             // 
@@ -244,6 +291,8 @@
             this.Text = "Шифр Цезаря, Михайлов Юрий Юрьевич, ИБ186";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -271,7 +320,13 @@
         private System.Windows.Forms.ToolStripMenuItem savetextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem savecrtextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveallToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem частотаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem freqTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem freqsFromFileToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
     }
 }
 

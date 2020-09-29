@@ -8,11 +8,14 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Text.RegularExpressions;
 
-namespace Vijener
+namespace CaesarCode
 {
     public partial class Form1 : Form
     {
+        private Dictionary<string, double> opfreq;
         public Form1()
         {
             InitializeComponent();
@@ -22,7 +25,7 @@ namespace Vijener
         {
         }
 
-        public int RusLetterToNumber(char c)
+        public static int RusLetterToNumber(char c)
         {
             if (c == 'ё') return 7;
             else
@@ -33,7 +36,7 @@ namespace Vijener
             }
         }
 
-        public char NumberToRusLetter(int n)
+        public static char NumberToRusLetter(int n)
         {
             if (n == 0) return 'я';
             if (n == 7) return 'ё';
@@ -49,14 +52,18 @@ namespace Vijener
             int tmp = (mode?key : 33 - key);
             string result = "";
             int code;
+            toolStripProgressBar1.Maximum = text.Length;
+            toolStripProgressBar1.Value = 0;
+            toolStripProgressBar1.Step = 1;
             foreach (char c in text.ToLower())
             {
-                if (c != ' ')
+                if (c >= 'а' && c<='ё')
                 {
                     code = (RusLetterToNumber(c) + tmp) % 33;
                     result += NumberToRusLetter(code);
                 }
                 else result += c;
+                toolStripProgressBar1.PerformStep();
             }
             return result;
         }
@@ -92,8 +99,54 @@ namespace Vijener
 
         private void freqTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FreqForm freq = new FreqForm(richTextBox1.Text);
-            freq.Show();
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sr = new StreamWriter(saveFileDialog1.FileName, false))
+                {
+                    string result = "";
+                    for (int i = 1; i <= 33; i++)
+                    {
+                        char c = NumberToRusLetter(i);
+                        result += c.ToString()+":"+ (double)richTextBox1.Text.Count(x => x == c)/richTextBox1.Text.Length+"\n";
+                    }
+                    sr.Write(result);
+                }
+            }
+        }
+
+        private void opentextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
+                {
+                    string text = sr.ReadToEnd().ToLower();
+                    richTextBox1.Text = new string(text.Where(x => (x >= 'а' && x <= 'ё') || x==' ').ToArray()).Replace("  ", "");
+                }
+            }
+        }
+
+        private void графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, double> freq2 = new Dictionary<string, double>();
+            for (int i = 1; i <= 33; i++)
+            {
+                char c = NumberToRusLetter(i);
+                freq2.Add(c.ToString(), (double)richTextBox2.Text.Count(x => x == c) / richTextBox2.Text.Length);
+            }
+            FreqForm freq = new FreqForm(opfreq, freq2);
+        }
+
+        private void freqsFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                opfreq = new Dictionary<string, double>();
+                using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
+                {
+
+                }
+            }
         }
     }
 }
