@@ -22,7 +22,7 @@ namespace Vijener
         {
         }
 
-        private int RusLetterToNumber(char c)
+        public int RusLetterToNumber(char c)
         {
             if (c == 'ё') return 7;
             else
@@ -33,7 +33,7 @@ namespace Vijener
             }
         }
 
-        private char NumberToRusLetter(int n)
+        public char NumberToRusLetter(int n)
         {
             if (n == 0) return 'я';
             if (n == 7) return 'ё';
@@ -44,32 +44,16 @@ namespace Vijener
             }
         }
 
-        private string Crypt(string text, int key)
+        private string Crypt(string text, int key, bool mode)
         {
-            //int tmp = (mode?key : 33 - key);
+            int tmp = (mode?key : 33 - key);
             string result = "";
             int code;
             foreach (char c in text.ToLower())
             {
                 if (c != ' ')
                 {
-                    code = (RusLetterToNumber(c) + key) % 33;
-                    result += NumberToRusLetter(code);
-                }
-                else result += c;
-            }
-            return result;
-        }
-
-        private string Decrypt(string crtext, int key)
-        {
-            string result = "";
-            int code;
-            foreach (char c in crtext.ToLower())
-            {
-                if (c != ' ')
-                {
-                    code = (RusLetterToNumber(c) + 33 - key) % 33;
+                    code = (RusLetterToNumber(c) + tmp) % 33;
                     result += NumberToRusLetter(code);
                 }
                 else result += c;
@@ -81,14 +65,14 @@ namespace Vijener
         {
             if (richTextBox1.Text.Length == 0) { MessageBox.Show("Введите исходный текст!"); return; }
             if (textBox1.Text.Length == 0) { MessageBox.Show("Введите ключ!"); return; }
-            richTextBox2.Text = Crypt(richTextBox1.Text, Int32.Parse(textBox1.Text));
+            richTextBox2.Text = Crypt(richTextBox1.Text, Int32.Parse(textBox1.Text), true);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (richTextBox2.Text.Length == 0) { MessageBox.Show("Введите шифртекст!"); return; }
             if (textBox1.Text.Length == 0) { MessageBox.Show("Введите ключ!"); return; }
-            richTextBox1.Text = Decrypt(richTextBox2.Text, Int32.Parse(textBox1.Text));
+            richTextBox1.Text = Crypt(richTextBox2.Text, Int32.Parse(textBox1.Text), false);
         }
 
         private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
