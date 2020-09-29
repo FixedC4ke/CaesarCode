@@ -20,7 +20,6 @@ namespace Vijener
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            toolStripStatusLabel1.Text = "Количество символов: " + ((RichTextBox)sender).Text.Length.ToString();
         }
 
         private int RusLetterToNumber(char c)
@@ -45,16 +44,16 @@ namespace Vijener
             }
         }
 
-        private string Crypt(string text, string tkey)
+        private string Crypt(string text, int key)
         {
-            Key key = new Key(tkey.ToLower());
+            //int tmp = (mode?key : 33 - key);
             string result = "";
             int code;
             foreach (char c in text.ToLower())
             {
                 if (c != ' ')
                 {
-                    code = (RusLetterToNumber(c) + RusLetterToNumber(key.Next())) % 33;
+                    code = (RusLetterToNumber(c) + key) % 33;
                     result += NumberToRusLetter(code);
                 }
                 else result += c;
@@ -62,16 +61,15 @@ namespace Vijener
             return result;
         }
 
-        private string Decrypt(string crtext, string tkey)
+        private string Decrypt(string crtext, int key)
         {
-            Key key = new Key(tkey.ToLower());
             string result = "";
             int code;
             foreach (char c in crtext.ToLower())
             {
                 if (c != ' ')
                 {
-                    code = (RusLetterToNumber(c) + 33 - RusLetterToNumber(key.Next())) % 33;
+                    code = (RusLetterToNumber(c) + 33 - key) % 33;
                     result += NumberToRusLetter(code);
                 }
                 else result += c;
@@ -83,14 +81,14 @@ namespace Vijener
         {
             if (richTextBox1.Text.Length == 0) { MessageBox.Show("Введите исходный текст!"); return; }
             if (textBox1.Text.Length == 0) { MessageBox.Show("Введите ключ!"); return; }
-            richTextBox2.Text = Crypt(richTextBox1.Text, textBox1.Text);
+            richTextBox2.Text = Crypt(richTextBox1.Text, Int32.Parse(textBox1.Text));
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (richTextBox2.Text.Length == 0) { MessageBox.Show("Введите шифртекст!"); return; }
             if (textBox1.Text.Length == 0) { MessageBox.Show("Введите ключ!"); return; }
-            richTextBox1.Text = Decrypt(richTextBox2.Text, textBox1.Text);
+            richTextBox1.Text = Decrypt(richTextBox2.Text, Int32.Parse(textBox1.Text));
         }
 
         private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -102,22 +100,16 @@ namespace Vijener
         {
             Close();
         }
-    }
 
-    public class Key
-    {
-        int currentindex;
-        string keystr;
-        public Key(string key)
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            keystr = key; currentindex = 0;
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar)) e.Handled = true;
         }
-        public char Next()
+
+        private void freqTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            char res = keystr[currentindex];
-            if (currentindex != keystr.Length - 1) currentindex++;
-            else currentindex = 0;
-            return res;
+            FreqForm freq = new FreqForm(richTextBox1.Text);
+            freq.Show();
         }
     }
 }
