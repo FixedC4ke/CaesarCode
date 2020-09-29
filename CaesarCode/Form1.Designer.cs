@@ -36,25 +36,29 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savetextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savecrtextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.криптоанализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.частотаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.freqTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.freqsFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -92,43 +96,39 @@
             // opentextToolStripMenuItem
             // 
             this.opentextToolStripMenuItem.Name = "opentextToolStripMenuItem";
-            this.opentextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.opentextToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.opentextToolStripMenuItem.Text = "&Исходный текст";
             this.opentextToolStripMenuItem.Click += new System.EventHandler(this.opentextToolStripMenuItem_Click);
             // 
             // opencrtextToolStripMenuItem
             // 
             this.opencrtextToolStripMenuItem.Name = "opencrtextToolStripMenuItem";
-            this.opencrtextToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.opencrtextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.opencrtextToolStripMenuItem.Text = "&Шифртекст";
+            this.opencrtextToolStripMenuItem.Click += new System.EventHandler(this.opencrtextToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.savetextToolStripMenuItem,
-            this.savecrtextToolStripMenuItem,
-            this.saveallToolStripMenuItem});
+            this.savecrtextToolStripMenuItem});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "&Сохранить";
             // 
             // savetextToolStripMenuItem
             // 
             this.savetextToolStripMenuItem.Name = "savetextToolStripMenuItem";
-            this.savetextToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.savetextToolStripMenuItem.Text = "savetext";
+            this.savetextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.savetextToolStripMenuItem.Text = "Исходный текст";
+            this.savetextToolStripMenuItem.Click += new System.EventHandler(this.savetextToolStripMenuItem_Click);
             // 
             // savecrtextToolStripMenuItem
             // 
             this.savecrtextToolStripMenuItem.Name = "savecrtextToolStripMenuItem";
-            this.savecrtextToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.savecrtextToolStripMenuItem.Text = "savecrtext";
-            // 
-            // saveallToolStripMenuItem
-            // 
-            this.saveallToolStripMenuItem.Name = "saveallToolStripMenuItem";
-            this.saveallToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.saveallToolStripMenuItem.Text = "saveall";
+            this.savecrtextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.savecrtextToolStripMenuItem.Text = "Шифртекст";
+            this.savecrtextToolStripMenuItem.Click += new System.EventHandler(this.savecrtextToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -169,6 +169,14 @@
             this.freqsFromFileToolStripMenuItem.Text = "Загрузить частоты из файла";
             this.freqsFromFileToolStripMenuItem.Click += new System.EventHandler(this.freqsFromFileToolStripMenuItem_Click);
             // 
+            // графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem
+            // 
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Enabled = false;
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Name = "графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem";
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Size = new System.Drawing.Size(351, 22);
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Text = "График частот букв русского языка и шифртекста";
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Click += new System.EventHandler(this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem_Click);
+            // 
             // richTextBox1
             // 
             this.richTextBox1.Location = new System.Drawing.Point(10, 52);
@@ -176,6 +184,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(334, 270);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged_1);
             // 
             // richTextBox2
             // 
@@ -184,6 +193,7 @@
             this.richTextBox2.Size = new System.Drawing.Size(334, 269);
             this.richTextBox2.TabIndex = 2;
             this.richTextBox2.Text = "";
+            this.richTextBox2.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
             // 
             // label1
             // 
@@ -206,12 +216,22 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBar1});
+            this.toolStripStatusLabel1,
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabel5});
             this.statusStrip1.Location = new System.Drawing.Point(0, 360);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(699, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             // 
             // textBox1
             // 
@@ -254,22 +274,40 @@
             // 
             this.saveFileDialog1.Filter = "Текстовый файл|*.txt";
             // 
-            // графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem
-            // 
-            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Name = "графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem";
-            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Size = new System.Drawing.Size(351, 22);
-            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Text = "График частот букв русского языка и шифртекста";
-            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Click += new System.EventHandler(this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem_Click);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Текстовый файл|*.txt";
             // 
-            // toolStripProgressBar1
+            // toolStripStatusLabel1
             // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(87, 17);
+            this.toolStripStatusLabel2.Text = "| Частоты букв";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.Red;
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(83, 17);
+            this.toolStripStatusLabel3.Text = "не загружены";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(220, 17);
+            this.toolStripStatusLabel4.Text = "| Кол-во символов открытого текста: 0";
+            // 
+            // toolStripStatusLabel5
+            // 
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(93, 17);
+            this.toolStripStatusLabel5.Text = "; шифртекста: 0";
             // 
             // Form1
             // 
@@ -319,7 +357,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem savetextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem savecrtextToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveallToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem частотаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem freqTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem freqsFromFileToolStripMenuItem;
@@ -327,6 +364,11 @@
         private System.Windows.Forms.ToolStripMenuItem графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
     }
 }
 

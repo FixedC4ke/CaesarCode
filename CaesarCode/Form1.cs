@@ -135,6 +135,7 @@ namespace CaesarCode
                 freq2.Add(c.ToString(), (double)richTextBox2.Text.Count(x => x == c) / richTextBox2.Text.Length);
             }
             FreqForm freq = new FreqForm(opfreq, freq2);
+            freq.Show();
         }
 
         private void freqsFromFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -144,7 +145,57 @@ namespace CaesarCode
                 opfreq = new Dictionary<string, double>();
                 using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
                 {
+                    while (!sr.EndOfStream)
+                    {
+                        string[] tmp = sr.ReadLine().Split(new char[] { ':' });
+                        opfreq.Add(tmp[0], Double.Parse(tmp[1]));
+                    }
+                }
+                toolStripStatusLabel3.Text = "загружены"; toolStripStatusLabel3.ForeColor = Color.Green;
+                графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Enabled = true;
+            }
+        }
 
+        private void richTextBox1_TextChanged_1(object sender, EventArgs e)
+        {
+            toolStripStatusLabel4.Text = "| Кол-во символов открытого текста: " + richTextBox1.Text.Length;
+        }
+
+        private void richTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            toolStripStatusLabel5.Text = "; шифртекста: " + richTextBox2.Text.Length;
+        }
+
+        private void opencrtextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
+                {
+                    string text = sr.ReadToEnd().ToLower();
+                    richTextBox2.Text = new string(text.Where(x => (x >= 'а' && x <= 'ё') || x == ' ').ToArray()).Replace("  ", "");
+                }
+            }
+        }
+
+        private void savetextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false))
+                {
+                    sw.Write(richTextBox1.Text);
+                }
+            }
+        }
+
+        private void savecrtextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false))
+                {
+                    sw.Write(richTextBox2.Text);
                 }
             }
         }

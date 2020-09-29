@@ -23,9 +23,13 @@ namespace CaesarCode
 
         private void freq_Load(object sender, EventArgs e)
         {
-            foreach (var r in freqData)
+            foreach (var d in otfreq)
             {
-                chart1.Series[0].Points.AddXY(r.Key, r.Value);
+                chart1.Series["Series1"].Points.AddXY(d.Key, d.Value);
+            }
+            foreach(var d in ctfreq)
+            {
+                chart1.Series["Series2"].Points.AddXY(d.Key, d.Value);
             }
         }
     }
