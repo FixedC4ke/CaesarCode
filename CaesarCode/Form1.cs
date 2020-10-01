@@ -47,14 +47,11 @@ namespace CaesarCode
             }
         }
 
-        private string Crypt(string text, int key, bool mode)
+        public static string Crypt(string text, int key, bool mode)
         {
             int tmp = (mode?key : 33 - key);
             string result = "";
             int code;
-            toolStripProgressBar1.Maximum = text.Length;
-            toolStripProgressBar1.Value = 0;
-            toolStripProgressBar1.Step = 1;
             foreach (char c in text.ToLower())
             {
                 if (c >= 'а' && c<='ё')
@@ -63,7 +60,6 @@ namespace CaesarCode
                     result += NumberToRusLetter(code);
                 }
                 else result += c;
-                toolStripProgressBar1.PerformStep();
             }
             return result;
         }
@@ -111,6 +107,7 @@ namespace CaesarCode
                     }
                     sr.Write(result);
                 }
+                MessageBox.Show("Файл с частотами букв открытого текста успешно сохранен");
             }
         }
 
@@ -128,6 +125,7 @@ namespace CaesarCode
 
         private void графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (richTextBox2.Text.Length == 0) { MessageBox.Show("Введите шифртекст!"); return; }
             Dictionary<string, double> freq2 = new Dictionary<string, double>();
             for (int i = 1; i <= 33; i++)
             {
@@ -135,7 +133,7 @@ namespace CaesarCode
                 freq2.Add(c.ToString(), (double)richTextBox2.Text.Count(x => x == c) / richTextBox2.Text.Length);
             }
             FreqForm freq = new FreqForm(opfreq, freq2);
-            freq.Show();
+            freq.ShowDialog();
         }
 
         private void freqsFromFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -148,11 +146,16 @@ namespace CaesarCode
                     while (!sr.EndOfStream)
                     {
                         string[] tmp = sr.ReadLine().Split(new char[] { ':' });
+                        if (tmp.Length < 2)
+                        {
+                            MessageBox.Show("Возникла ошибка при чтении частот. Данный файл с частотами поврежден.");
+                            return;
+                        }
                         opfreq.Add(tmp[0], Double.Parse(tmp[1]));
                     }
                 }
                 toolStripStatusLabel3.Text = "загружены"; toolStripStatusLabel3.ForeColor = Color.Green;
-                графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Enabled = true;
+                графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem.Enabled = attackToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -198,6 +201,21 @@ namespace CaesarCode
                     sw.Write(richTextBox2.Text);
                 }
             }
+        }
+
+        private void attackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (richTextBox2.Text.Length == 0) { MessageBox.Show("Введите шифртекст!"); return; }
+            Dictionary<string, double> freq2 = new Dictionary<string, double>();
+            for (int i = 1; i <= 33; i++)
+            {
+                char c = NumberToRusLetter(i);
+                freq2.Add(c.ToString(), (double)richTextBox2.Text.Count(x => x == c) / richTextBox2.Text.Length);
+            }
+            var item1 = opfreq.OrderByDescending(pair => pair.Value).Select(x => x.Key).Take(1).ToArray();
+            var item2 = freq2.OrderByDescending(pair => pair.Value).Select(x => x.Key).Take(1).ToArray();
+            int code = RusLetterToNumber(Char.Parse(item2[0]))-RusLetterToNumber(Char.Parse(item1[0]));
+            textBox1.Text = (code >= 0 ? code.ToString() : (33 + code).ToString());
         }
     }
 }

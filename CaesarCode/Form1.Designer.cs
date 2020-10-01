@@ -47,18 +47,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.attackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -90,7 +90,7 @@
             this.opentextToolStripMenuItem,
             this.opencrtextToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.openToolStripMenuItem.Text = "&Загрузить";
             // 
             // opentextToolStripMenuItem
@@ -103,7 +103,7 @@
             // opencrtextToolStripMenuItem
             // 
             this.opencrtextToolStripMenuItem.Name = "opencrtextToolStripMenuItem";
-            this.opencrtextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.opencrtextToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.opencrtextToolStripMenuItem.Text = "&Шифртекст";
             this.opencrtextToolStripMenuItem.Click += new System.EventHandler(this.opencrtextToolStripMenuItem_Click);
             // 
@@ -113,20 +113,20 @@
             this.savetextToolStripMenuItem,
             this.savecrtextToolStripMenuItem});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.saveToolStripMenuItem.Text = "&Сохранить";
             // 
             // savetextToolStripMenuItem
             // 
             this.savetextToolStripMenuItem.Name = "savetextToolStripMenuItem";
-            this.savetextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.savetextToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.savetextToolStripMenuItem.Text = "Исходный текст";
             this.savetextToolStripMenuItem.Click += new System.EventHandler(this.savetextToolStripMenuItem_Click);
             // 
             // savecrtextToolStripMenuItem
             // 
             this.savecrtextToolStripMenuItem.Name = "savecrtextToolStripMenuItem";
-            this.savecrtextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.savecrtextToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.savecrtextToolStripMenuItem.Text = "Шифртекст";
             this.savecrtextToolStripMenuItem.Click += new System.EventHandler(this.savecrtextToolStripMenuItem_Click);
             // 
@@ -141,7 +141,8 @@
             // 
             this.криптоанализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.частотаToolStripMenuItem,
-            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem});
+            this.графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem,
+            this.attackToolStripMenuItem});
             this.криптоанализToolStripMenuItem.Name = "криптоанализToolStripMenuItem";
             this.криптоанализToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
             this.криптоанализToolStripMenuItem.Text = "&Криптоанализ";
@@ -217,7 +218,6 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripProgressBar1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel4,
@@ -228,10 +228,35 @@
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripProgressBar1
+            // toolStripStatusLabel1
             // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(81, 17);
+            this.toolStripStatusLabel2.Text = "Частоты букв";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.Red;
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(83, 17);
+            this.toolStripStatusLabel3.Text = "не загружены";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(220, 17);
+            this.toolStripStatusLabel4.Text = "| Кол-во символов открытого текста: 0";
+            // 
+            // toolStripStatusLabel5
+            // 
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(93, 17);
+            this.toolStripStatusLabel5.Text = "; шифртекста: 0";
             // 
             // textBox1
             // 
@@ -279,35 +304,13 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Текстовый файл|*.txt";
             // 
-            // toolStripStatusLabel1
+            // attackToolStripMenuItem
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(87, 17);
-            this.toolStripStatusLabel2.Text = "| Частоты букв";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.Red;
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(83, 17);
-            this.toolStripStatusLabel3.Text = "не загружены";
-            // 
-            // toolStripStatusLabel4
-            // 
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(220, 17);
-            this.toolStripStatusLabel4.Text = "| Кол-во символов открытого текста: 0";
-            // 
-            // toolStripStatusLabel5
-            // 
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(93, 17);
-            this.toolStripStatusLabel5.Text = "; шифртекста: 0";
+            this.attackToolStripMenuItem.Enabled = false;
+            this.attackToolStripMenuItem.Name = "attackToolStripMenuItem";
+            this.attackToolStripMenuItem.Size = new System.Drawing.Size(351, 22);
+            this.attackToolStripMenuItem.Text = "Произвести атаку";
+            this.attackToolStripMenuItem.Click += new System.EventHandler(this.attackToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -324,9 +327,12 @@
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Шифр Цезаря, Михайлов Юрий Юрьевич, ИБ186";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Шифр Цезаря";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -363,12 +369,12 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem графикЧастотБуквРусскогоЯзыкаИШифртекстаToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.ToolStripMenuItem attackToolStripMenuItem;
     }
 }
 
