@@ -15,17 +15,13 @@ namespace CaesarCode
 {
     public partial class Form1 : Form
     {
-        private Dictionary<string, double> opfreq;
+        private Dictionary<string, double> opfreq; //используется для хранения частот символов в русском языке
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        public static int RusLetterToNumber(char c)
+        public static int RusLetterToNumber(char c) //функция, возвращающая номер буквы от 1 до 33
         {
             if (c == 'ё') return 7;
             else
@@ -36,7 +32,7 @@ namespace CaesarCode
             }
         }
 
-        public static char NumberToRusLetter(int n)
+        public static char NumberToRusLetter(int n) //функция, возвращающая букву по ее номеру
         {
             if (n == 0) return 'я';
             if (n == 7) return 'ё';
@@ -47,14 +43,14 @@ namespace CaesarCode
             }
         }
 
-        public static string Crypt(string text, int key, bool mode)
+        public static string Crypt(string text, int key, bool mode) //если mode == True - шифрование, False - дешифрование
         {
-            int tmp = (mode?key : 33 - key);
+            int tmp = (mode?key : 33 - key); //при шифровании символ открытого текста необходимо сместить на key символов, при дешифровании на -key (33-key с учетом размера алфавита)
             string result = "";
             int code;
             foreach (char c in text.ToLower())
             {
-                if (c >= 'а' && c<='ё')
+                if (c >= 'а' && c<='ё') //если символ не является буквой русского алфавита, то он будет напечатан в незашифрованном виде
                 {
                     code = (RusLetterToNumber(c) + tmp) % 33;
                     result += NumberToRusLetter(code);
@@ -64,25 +60,19 @@ namespace CaesarCode
             return result;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) //код кнопки "зашифровать"
         {
             if (richTextBox1.Text.Length == 0) { MessageBox.Show("Введите исходный текст!"); return; }
             if (textBox1.Text.Length == 0) { MessageBox.Show("Введите ключ!"); return; }
             richTextBox2.Text = Crypt(richTextBox1.Text, Int32.Parse(textBox1.Text), true);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)//код кнопки "расшифровать"
         {
             if (richTextBox2.Text.Length == 0) { MessageBox.Show("Введите шифртекст!"); return; }
             if (textBox1.Text.Length == 0) { MessageBox.Show("Введите ключ!"); return; }
             richTextBox1.Text = Crypt(richTextBox2.Text, Int32.Parse(textBox1.Text), false);
         }
-
-        private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar < 'а' || e.KeyChar > 'я') && e.KeyChar != ' ') e.Handled = true;
-        }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -90,10 +80,10 @@ namespace CaesarCode
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar)) e.Handled = true;
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar)) e.Handled = true; //ограничение на ввод поля "ключ": может содержать только целые числа
         }
 
-        private void freqTextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void freqTextToolStripMenuItem_Click(object sender, EventArgs e) //исследуется частота появления каждой буквы в открытом тексте, после чего полученные данные сохраняются в файл.
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -111,14 +101,15 @@ namespace CaesarCode
             }
         }
 
-        private void opentextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void opentextToolStripMenuItem_Click(object sender, EventArgs e) //загрузка открытого текста из файла
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
                 {
                     string text = sr.ReadToEnd().ToLower();
-                    richTextBox1.Text = new string(text.Where(x => (x >= 'а' && x <= 'ё') || x==' ').ToArray()).Replace("  ", "");
+                    richTextBox1.Text = new string(text.Where(x => (x >= 'а' && x <= 'ё') || x==' ').ToArray()).Replace("  ", ""); //из текста удаляются все символы, не являющиеся русскими буквами (за исключением пробела)
+                    //при загрузке двойные пробелы удаляются   
                 }
             }
         }
@@ -127,7 +118,7 @@ namespace CaesarCode
         {
             if (richTextBox2.Text.Length == 0) { MessageBox.Show("Введите шифртекст!"); return; }
             Dictionary<string, double> freq2 = new Dictionary<string, double>();
-            for (int i = 1; i <= 33; i++)
+            for (int i = 1; i <= 33; i++)  //исследуется частота появления каждой буквы в шифртексте, данные сохраняются в виде пар (буква, частота появления)
             {
                 char c = NumberToRusLetter(i);
                 freq2.Add(c.ToString(), (double)richTextBox2.Text.Count(x => x == c) / richTextBox2.Text.Length);
@@ -136,7 +127,7 @@ namespace CaesarCode
             freq.ShowDialog();
         }
 
-        private void freqsFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void freqsFromFileToolStripMenuItem_Click(object sender, EventArgs e) //чтение частот из файла
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -159,7 +150,7 @@ namespace CaesarCode
             }
         }
 
-        private void richTextBox1_TextChanged_1(object sender, EventArgs e)
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
             toolStripStatusLabel4.Text = "| Кол-во символов открытого текста: " + richTextBox1.Text.Length;
         }
@@ -169,7 +160,7 @@ namespace CaesarCode
             toolStripStatusLabel5.Text = "; шифртекста: " + richTextBox2.Text.Length;
         }
 
-        private void opencrtextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void opencrtextToolStripMenuItem_Click(object sender, EventArgs e) //загрузка шифртекста из файла (аналогично загрузке открытого текста)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -181,7 +172,7 @@ namespace CaesarCode
             }
         }
 
-        private void savetextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void savetextToolStripMenuItem_Click(object sender, EventArgs e) //сохранение открытого текста
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -192,7 +183,7 @@ namespace CaesarCode
             }
         }
 
-        private void savecrtextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void savecrtextToolStripMenuItem_Click(object sender, EventArgs e) //сохранение шифртекста
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -203,19 +194,19 @@ namespace CaesarCode
             }
         }
 
-        private void attackToolStripMenuItem_Click(object sender, EventArgs e)
+        private void attackToolStripMenuItem_Click(object sender, EventArgs e) //атака на шифр
         {
             if (richTextBox2.Text.Length == 0) { MessageBox.Show("Введите шифртекст!"); return; }
             Dictionary<string, double> freq2 = new Dictionary<string, double>();
-            for (int i = 1; i <= 33; i++)
+            for (int i = 1; i <= 33; i++) //исследуется частота появления каждой буквы в шифртексте, данные сохраняются в виде пар (буква, частота появления)
             {
                 char c = NumberToRusLetter(i);
                 freq2.Add(c.ToString(), (double)richTextBox2.Text.Count(x => x == c) / richTextBox2.Text.Length);
             }
-            var item1 = opfreq.OrderByDescending(pair => pair.Value).Select(x => x.Key).Take(1).ToArray();
-            var item2 = freq2.OrderByDescending(pair => pair.Value).Select(x => x.Key).Take(1).ToArray();
-            int code = RusLetterToNumber(Char.Parse(item2[0]))-RusLetterToNumber(Char.Parse(item1[0]));
-            textBox1.Text = (code >= 0 ? code.ToString() : (33 + code).ToString());
+            var item1 = opfreq.OrderByDescending(pair => pair.Value).Select(x => x.Key).Take(1).ToArray(); //выбирается наиболее часто встречающаяся буква открытого текста
+            var item2 = freq2.OrderByDescending(pair => pair.Value).Select(x => x.Key).Take(1).ToArray(); // ...шифртекста
+            int code = RusLetterToNumber(Char.Parse(item2[0]))-RusLetterToNumber(Char.Parse(item1[0])); //вычисляется ключ
+            textBox1.Text = (code >= 0 ? code.ToString() : (33 + code).ToString()); //ключ вводится в поле "ключ"
         }
     }
 }
